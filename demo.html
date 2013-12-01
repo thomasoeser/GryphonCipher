@@ -1,0 +1,40 @@
+<script src="sha256.js"></script>
+<script src="tea.js"></script>
+<script src="gryphoncipher.js"></script>
+<script>
+	function encrypt()
+	{
+		var password = document.getElementById("password").value;
+		var data = document.getElementById("plaintext").value;
+		var tea = Tea.encrypt(data, password);
+		var gryphoncipher = GryphonCipher.encrypt(tea,password);
+		document.getElementById("teaencrypted").value = tea;
+		document.getElementById("encrypted").value = gryphoncipher;
+	}
+	function decrypt()
+	{
+		var password = document.getElementById("password").value;
+		var data = document.getElementById("encrypted").value;
+		var gryphoncipher = GryphonCipher.decrypt(data,password);
+		var tea = Tea.decrypt(gryphoncipher, password);
+		document.getElementById("decrypted").value = tea;
+	}
+
+</script>
+
+Password<br>
+<input id="password" type="text"><br>
+Plaintext<br>
+<input id="plaintext" type="text"><br><br>
+<button onclick="encrypt()">Encrypt</button>
+<br><br>
+Encrypted:Tea: <input id="teaencrypted" type="text">
+<br>
+GryphonCipher: <input id="encrypted" type="text">
+<br><br>
+<button onclick="decrypt()">Decrypt</button>
+<p>
+Result Decrypted:
+<input id="decrypted" type="text">
+
+
